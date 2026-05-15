@@ -258,10 +258,11 @@ TNS_FILE_RESOURCE=/totvs/resources/settings/tnsnames.ora
     check_env_vars "SQL_COMMAND_PASSWORD_UPDATE"
 
     echo "quit;" | isql -v "$DATABASE_DEFAULT_ALIAS" "$DATABASE_USERNAME" "$DATABASE_PASSWORD"
+    ISQL_STATUS=$?
 
-    cat "$ODBC_PATH"
+    # cat "$ODBC_PATH"
 
-    if [ ! $? = 0 ]; then
+    if [ ! $ISQL_STATUS -eq 0 ]; then
 
         echo "❌ ERRO: A senha ('$DATABASE_PASSWORD') para o DB ${DATABASE_PROFILE} parece estar incorreta ou o alias é inválido."
         echo "⚠️ Tentando conexão com senha default."
